@@ -20,8 +20,12 @@ config/icon="res://icon.svg"
 
 [audio]
 
-buses/default_bus_layout="res://audio_bus_layout.tres"
+buses/default_bus_layout="res://defaults/audio_bus_layout.tres"
 driver/enable_input=true
+
+[display]
+
+window/size/mode=3
 
 [input]
 
@@ -103,3 +107,8 @@ pause={
 [physics]
 
 3d/default_gravity=16.0
+
+[rendering]
+
+environment/defaults/default_clear_color=Color(0.129412, 0.14902, 0.180392, 1)
+environment/defaults/default_environment="res://defaults/world_environment.tres"

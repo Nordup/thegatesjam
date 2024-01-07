@@ -1,31 +1,50 @@
-[gd_scene load_steps=5 format=3 uid="uid://cvn24m03wis7x"]
+[gd_scene load_steps=4 format=3 uid="uid://cvn24m03wis7x"]
 
 [ext_resource type="PackedScene" uid="uid://ciqrpd5675boy" path="res://player/player.tscn" id="1_sklm8"]
-
-[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_8wnys"]
-sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
-ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
-
-[sub_resource type="Sky" id="Sky_wrxl4"]
-sky_material = SubResource("ProceduralSkyMaterial_8wnys")
-
-[sub_resource type="Environment" id="Environment_o5g52"]
-background_mode = 2
-sky = SubResource("Sky_wrxl4")
-tonemap_mode = 2
+[ext_resource type="Material" uid="uid://d0kdu7iko8qyb" path="res://level/green.material" id="2_vu1ki"]
+[ext_resource type="Environment" uid="uid://cgqlrwpgos8m3" path="res://defaults/world_environment.tres" id="3_pci3j"]
 
 [node name="hub" type="Node3D"]
 
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
-shadow_enabled = true
+[node name="Player" parent="." instance=ExtResource("1_sklm8")]
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource("Environment_o5g52")
+[node name="Scene" type="Node3D" parent="."]
 
-[node name="CSGBox3D" type="CSGBox3D" parent="."]
+[node name="CSGBox3D" type="CSGBox3D" parent="Scene"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
 use_collision = true
-size = Vector3(100, 1, 100)
+size = Vector3(14, 1, 22)
+material = ExtResource("2_vu1ki")
 
-[node name="Player" parent="." instance=ExtResource("1_sklm8")]
+[node name="CSGBox3D2" type="CSGBox3D" parent="Scene"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.7613, 1.74019, -1.16279)
+use_collision = true
+size = Vector3(11.3191, 1, 9.78139)
+material = ExtResource("2_vu1ki")
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="Scene"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17.5821, 3.79869, -13.5453)
+use_collision = true
+size = Vector3(11.3191, 1, 9.78139)
+material = ExtResource("2_vu1ki")
+
+[node name="CSGBox3D4" type="CSGBox3D" parent="Scene"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.8658, -2.39739, -9.67629)
+use_collision = true
+size = Vector3(11.3191, 1, 9.78139)
+material = ExtResource("2_vu1ki")
+
+[node name="CSGBox3D5" type="CSGBox3D" parent="Scene"]
+transform = Transform3D(1, 0, 0, 0, 0.913304, 0.407279, 0, -0.407279, 0.913304, 12.8658, -0.852934, 4.45903)
+use_collision = true
+size = Vector3(11.3191, 1, 9.78139)
+material = ExtResource("2_vu1ki")
+
+[node name="Env" type="Node3D" parent="."]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Env"]
+transform = Transform3D(-0.866024, -0.433016, 0.250001, 0, 0.499998, 0.866026, -0.500003, 0.749999, -0.43301, 0, 0, 0)
+shadow_enabled = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="Env"]
+environment = ExtResource("3_pci3j")

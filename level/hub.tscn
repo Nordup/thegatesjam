@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://cvn24m03wis7x"]
 
-[ext_resource type="PackedScene" uid="uid://ciqrpd5675boy" path="res://Player/Player.tscn" id="1_sklm8"]
+[ext_resource type="PackedScene" uid="uid://ciqrpd5675boy" path="res://player/player.tscn" id="1_sklm8"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_8wnys"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -29,3 +29,12 @@ use_collision = true
 size = Vector3(100, 1, 100)
 
 [node name="Player" parent="." instance=ExtResource("1_sklm8")]
+move_speed = null
+attack_impulse = null
+jump_initial_impulse = null
+jump_additional_force = null
+rotation_speed = null
+stopping_speed = null
+max_throwback_force = null
+shoot_cooldown = null
+grenade_cooldown = null

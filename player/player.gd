@@ -78,16 +78,16 @@ func _physics_process(delta: float) -> void:
 
 	# Set character animation
 	if is_just_jumping:
-		_character_skin.jump()
+		_character_skin.jump.rpc()
 	elif not is_on_floor() and velocity.y < 0:
-		_character_skin.fall()
+		_character_skin.fall.rpc()
 	elif is_on_floor():
 		var xz_velocity := Vector3(velocity.x, 0, velocity.z)
 		if xz_velocity.length() > stopping_speed:
-			_character_skin.set_moving(true)
-			_character_skin.set_moving_speed(inverse_lerp(0.0, move_speed, xz_velocity.length()))
+			_character_skin.set_moving.rpc(true)
+			_character_skin.set_moving_speed.rpc(inverse_lerp(0.0, move_speed, xz_velocity.length()))
 		else:
-			_character_skin.set_moving(false)
+			_character_skin.set_moving.rpc(false)
 
 	var position_before := global_position
 	move_and_slide()

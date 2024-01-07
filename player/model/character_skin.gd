@@ -15,7 +15,6 @@ var moving_blend_path := "parameters/StateMachine/move/blend_position"
 @onready var animation_tree : AnimationTree = $AnimationTree
 @onready var state_machine : AnimationNodeStateMachinePlayback = animation_tree.get("parameters/StateMachine/playback")
 
-
 @onready var _step_sound: AudioStreamPlayer3D = $StepSound
 @onready var _landing_sound: AudioStreamPlayer3D = $LandingSound
 
@@ -25,6 +24,7 @@ func _ready():
 	main_animation_player["playback_default_blend_time"] = 0.1
 
 
+@rpc("authority", "call_local", "unreliable_ordered")
 func set_moving(value : bool):
 	moving = value
 	if moving:
@@ -33,21 +33,20 @@ func set_moving(value : bool):
 		state_machine.travel("idle")
 
 
+@rpc("authority", "call_local", "unreliable_ordered")
 func set_moving_speed(value : float):
 	move_speed = clamp(value, 0.0, 1.0)
 	animation_tree.set(moving_blend_path, move_speed)
 
 
+@rpc("authority", "call_local", "unreliable_ordered")
 func jump():
 	state_machine.travel("jump")
 
 
+@rpc("authority", "call_local", "unreliable_ordered")
 func fall():
 	state_machine.travel("fall")
-
-
-func punch():
-	animation_tree["parameters/PunchOneShot/request"] = AnimationNodeOneShot.ONE_SHOT_REQUEST_FIRE
 
 
 func play_step_sound():

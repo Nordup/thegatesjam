@@ -13,7 +13,6 @@ sky_material = SubResource("ProceduralSkyMaterial_8wnys")
 background_mode = 2
 sky = SubResource("Sky_wrxl4")
 tonemap_mode = 2
-glow_enabled = true
 
 [node name="hub" type="Node3D"]
 

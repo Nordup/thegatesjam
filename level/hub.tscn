@@ -29,12 +29,3 @@ use_collision = true
 size = Vector3(100, 1, 100)
 
 [node name="Player" parent="." instance=ExtResource("1_sklm8")]
-move_speed = null
-attack_impulse = null
-jump_initial_impulse = null
-jump_additional_force = null
-rotation_speed = null
-stopping_speed = null
-max_throwback_force = null
-shoot_cooldown = null
-grenade_cooldown = null

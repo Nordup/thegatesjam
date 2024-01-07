@@ -1,8 +1,6 @@
 class_name CameraController
 extends Node3D
 
-enum CAMERA_PIVOT { OVER_SHOULDER, THIRD_PERSON }
-
 @export_node_path var player_path : NodePath
 @export var invert_mouse_y := false
 @export_range(0.0, 1.0) var mouse_sensitivity := 0.25
@@ -11,16 +9,9 @@ enum CAMERA_PIVOT { OVER_SHOULDER, THIRD_PERSON }
 @export var tilt_lower_limit := deg_to_rad(60.0)
 
 @onready var camera: Camera3D = $PlayerCamera
-@onready var _over_shoulder_pivot: Node3D = $CameraOverShoulderPivot
 @onready var _camera_spring_arm: SpringArm3D = $CameraSpringArm
-@onready var _third_person_pivot: Node3D = $CameraSpringArm/CameraThirdPersonPivot
-@onready var _camera_raycast: RayCast3D = $PlayerCamera/CameraRayCast
+@onready var _pivot: Node3D = $CameraSpringArm/CameraThirdPersonPivot
 
-
-var _aim_target : Vector3
-var _aim_collider: Node
-var _pivot: Node3D
-var _current_pivot_type: CAMERA_PIVOT
 var _rotation_input: float
 var _tilt_input: float
 var _mouse_input := false
@@ -46,13 +37,6 @@ func _physics_process(delta: float) -> void:
 	if invert_mouse_y:
 		_tilt_input *= -1
 
-	if _camera_raycast.is_colliding():
-		_aim_target = _camera_raycast.get_collision_point()
-		_aim_collider = _camera_raycast.get_collider()
-	else:
-		_aim_target = _camera_raycast.global_transform * _camera_raycast.target_position
-		_aim_collider = null
-
 	# Set camera controller to current ground level for the character
 	var target_position := _anchor.global_position + _offset
 	target_position.y = lerp(global_position.y, _anchor._ground_height, 0.1)
@@ -75,32 +59,5 @@ func _physics_process(delta: float) -> void:
 func setup(anchor: CharacterBody3D) -> void:
 	_anchor = anchor
 	_offset = global_transform.origin - anchor.global_transform.origin
-	set_pivot(CAMERA_PIVOT.THIRD_PERSON)
 	camera.global_transform = camera.global_transform.interpolate_with(_pivot.global_transform, 0.1)
 	_camera_spring_arm.add_excluded_object(_anchor.get_rid())
-	_camera_raycast.add_exception_rid(_anchor.get_rid())
-
-
-func set_pivot(pivot_type: CAMERA_PIVOT) -> void:
-	if pivot_type == _current_pivot_type:
-		return
-
-	match(pivot_type):
-		CAMERA_PIVOT.OVER_SHOULDER:
-			_over_shoulder_pivot.look_at(_aim_target)
-			_pivot = _over_shoulder_pivot
-		CAMERA_PIVOT.THIRD_PERSON:
-			_pivot = _third_person_pivot
-
-	_current_pivot_type = pivot_type
-
-
-func get_aim_target() -> Vector3:
-	return _aim_target
-
-
-func get_aim_collider() -> Node:
-	if is_instance_valid(_aim_collider):
-		return _aim_collider
-	else:
-		return null

@@ -1,0 +1,54 @@
+[gd_scene load_steps=4 format=3 uid="uid://mqnlrs6hn6g6"]
+
+[ext_resource type="Script" path="res://main/connection.gd" id="1_hlrxf"]
+[ext_resource type="Script" path="res://main/ui_hide.gd" id="2_wtioc"]
+[ext_resource type="PackedScene" uid="uid://cvn24m03wis7x" path="res://hub/hub.tscn" id="3_lthm6"]
+
+[node name="Main" type="Node"]
+
+[node name="Connection" type="Node" parent="."]
+script = ExtResource("1_hlrxf")
+port = 5050
+max_clients = 256
+host = "localhost"
+
+[node name="UI" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+script = ExtResource("2_wtioc")
+
+[node name="Buttons" type="VBoxContainer" parent="UI"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -150.0
+offset_top = -52.0
+offset_right = 150.0
+offset_bottom = 52.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Server" type="Button" parent="UI/Buttons"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "Server"
+
+[node name="Client" type="Button" parent="UI/Buttons"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "Client"
+
+[node name="Hub" parent="." instance=ExtResource("3_lthm6")]
+
+[connection signal="pressed" from="UI/Buttons/Server" to="Connection" method="start_server"]
+[connection signal="pressed" from="UI/Buttons/Server" to="UI" method="hide_ui"]
+[connection signal="pressed" from="UI/Buttons/Client" to="Connection" method="start_client"]
+[connection signal="pressed" from="UI/Buttons/Client" to="UI" method="hide_ui"]

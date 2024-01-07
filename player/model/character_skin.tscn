@@ -2692,8 +2692,10 @@ parameters/StateMachine/move/blend_position = 0
 
 [node name="StepSound" type="AudioStreamPlayer3D" parent="."]
 stream = ExtResource("9_hd4rs")
+bus = &"Character"
 
 [node name="LandingSound" type="AudioStreamPlayer3D" parent="."]
 stream = ExtResource("10_owoec")
+bus = &"Character"
 
 [editable path="gdbot"]

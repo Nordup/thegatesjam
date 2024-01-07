@@ -1,9 +1,10 @@
-[gd_scene load_steps=10 format=3 uid="uid://ciqrpd5675boy"]
+[gd_scene load_steps=11 format=3 uid="uid://ciqrpd5675boy"]
 
 [ext_resource type="Script" path="res://player/player.gd" id="1_pdbxc"]
 [ext_resource type="Script" path="res://player/camera_controller.gd" id="2_2fob2"]
 [ext_resource type="Script" path="res://player/player_camera.gd" id="3_fbyq3"]
 [ext_resource type="PackedScene" uid="uid://c0mo8tek77du4" path="res://player/model/character_skin.tscn" id="3_ufinh"]
+[ext_resource type="PackedScene" uid="uid://doq7mhnb2cppx" path="res://voip/voice_instance.tscn" id="5_yjpi0"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_8x2xm"]
 
@@ -69,6 +70,9 @@ debug_shape_custom_color = Color(0.658824, 1, 0, 1)
 [node name="CharacterRotationRoot" type="Node3D" parent="."]
 
 [node name="CharacterSkin" parent="CharacterRotationRoot" instance=ExtResource("3_ufinh")]
+
+[node name="VoiceInstance" parent="." instance=ExtResource("5_yjpi0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7, 0)
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_g0ye7")

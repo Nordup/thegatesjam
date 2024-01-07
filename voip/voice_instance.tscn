@@ -1,0 +1,58 @@
+[gd_scene load_steps=7 format=3 uid="uid://doq7mhnb2cppx"]
+
+[ext_resource type="Script" path="res://voip/voice_instance.gd" id="1_denby"]
+[ext_resource type="Script" path="res://voip/hide_ui.gd" id="2_q6jaj"]
+[ext_resource type="Script" path="res://voip/mic_controller.gd" id="3_qmo8t"]
+
+[sub_resource type="AudioStreamMicrophone" id="AudioStreamMicrophone_sqrcl"]
+
+[sub_resource type="AudioStreamGenerator" id="AudioStreamGenerator_qqedh"]
+buffer_length = 0.1
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ri2ce"]
+bg_color = Color(0.129412, 0.14902, 0.180392, 0.431373)
+
+[node name="VoiceInstance" type="Node3D" node_paths=PackedStringArray("mic", "audio")]
+script = ExtResource("1_denby")
+mic = NodePath("Mic")
+audio = NodePath("Audio")
+input_threshold = 0.02
+
+[node name="Mic" type="AudioStreamPlayer" parent="." node_paths=PackedStringArray("label")]
+stream = SubResource("AudioStreamMicrophone_sqrcl")
+volume_db = 5.919
+bus = &"Record"
+script = ExtResource("3_qmo8t")
+label = NodePath("../UI/PanelContainer/Label")
+
+[node name="Audio" type="AudioStreamPlayer3D" parent="."]
+stream = SubResource("AudioStreamGenerator_qqedh")
+bus = &"Speak"
+
+[node name="UI" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+script = ExtResource("2_q6jaj")
+
+[node name="PanelContainer" type="PanelContainer" parent="UI"]
+layout_mode = 0
+offset_left = 40.0
+offset_top = 40.0
+offset_right = 211.0
+offset_bottom = 156.0
+
+[node name="Panel" type="Panel" parent="UI/PanelContainer"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_ri2ce")
+
+[node name="Label" type="Label" parent="UI/PanelContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 30
+text = "Press [Q]
+Mic is off"

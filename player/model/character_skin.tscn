@@ -1,6 +1,6 @@
 [gd_scene load_steps=18 format=3 uid="uid://c0mo8tek77du4"]
 
-[ext_resource type="Script" path="res://player/character_skin.gd" id="2_cp6td"]
+[ext_resource type="Script" path="res://player/model/character_skin.gd" id="2_cp6td"]
 [ext_resource type="PackedScene" uid="uid://db7wkegkjmixy" path="res://player/model/gdbot.glb" id="2_v8h3f"]
 [ext_resource type="Material" uid="uid://dh42cdejchkr3" path="res://player/model/materials/face_mat.tres" id="3_fvn82"]
 [ext_resource type="AnimationNodeBlendTree" uid="uid://ctycm6blx4sw4" path="res://player/model/character_blend_tree.tres" id="3_hscum"]

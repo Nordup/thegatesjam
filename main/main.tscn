@@ -1,8 +1,10 @@
-[gd_scene load_steps=4 format=3 uid="uid://mqnlrs6hn6g6"]
+[gd_scene load_steps=6 format=3 uid="uid://mqnlrs6hn6g6"]
 
 [ext_resource type="Script" path="res://main/connection.gd" id="1_hlrxf"]
 [ext_resource type="Script" path="res://main/ui_hide.gd" id="2_wtioc"]
-[ext_resource type="PackedScene" uid="uid://cvn24m03wis7x" path="res://hub/hub.tscn" id="3_lthm6"]
+[ext_resource type="PackedScene" uid="uid://cvn24m03wis7x" path="res://levels/hub_level.tscn" id="3_lthm6"]
+[ext_resource type="Script" path="res://main/player_spawner.gd" id="4_edyrb"]
+[ext_resource type="PackedScene" uid="uid://ciqrpd5675boy" path="res://player/player.tscn" id="5_wb2xi"]
 
 [node name="Main" type="Node"]
 
@@ -46,9 +48,21 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 30
 text = "Client"
 
-[node name="Hub" parent="." instance=ExtResource("3_lthm6")]
+[node name="HubLevel" parent="." instance=ExtResource("3_lthm6")]
 
+[node name="Players" type="Node3D" parent="."]
+
+[node name="PlayerSpawner" type="MultiplayerSpawner" parent="." node_paths=PackedStringArray("spawn_points")]
+_spawnable_scenes = PackedStringArray("res://player/player.tscn")
+spawn_path = NodePath("../Players")
+script = ExtResource("4_edyrb")
+player_scene = ExtResource("5_wb2xi")
+spawn_points = NodePath("../HubLevel/SpawnPoints")
+
+[connection signal="connection_stopped" from="Connection" to="UI" method="show_ui"]
 [connection signal="pressed" from="UI/Buttons/Server" to="Connection" method="start_server"]
 [connection signal="pressed" from="UI/Buttons/Server" to="UI" method="hide_ui"]
 [connection signal="pressed" from="UI/Buttons/Client" to="Connection" method="start_client"]
 [connection signal="pressed" from="UI/Buttons/Client" to="UI" method="hide_ui"]
+
+[editable path="HubLevel"]

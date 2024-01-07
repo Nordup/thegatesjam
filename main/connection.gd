@@ -7,6 +7,11 @@ signal connection_stopped
 @export var host: String
 
 
+func _ready() -> void:
+	if "--server" in OS.get_cmdline_args():
+		start_server()
+
+
 func start_server() -> void:
 	var peer = ENetMultiplayerPeer.new()
 	var err = peer.create_server(port, max_clients)

@@ -1,7 +1,8 @@
-[gd_scene load_steps=10 format=3 uid="uid://ciqrpd5675boy"]
+[gd_scene load_steps=11 format=3 uid="uid://ciqrpd5675boy"]
 
 [ext_resource type="Script" path="res://player/player.gd" id="1_pdbxc"]
 [ext_resource type="Script" path="res://player/camera_controller.gd" id="2_2fob2"]
+[ext_resource type="Script" path="res://player/player_camera.gd" id="3_fbyq3"]
 [ext_resource type="PackedScene" uid="uid://c0mo8tek77du4" path="res://player/model/character_skin.tscn" id="3_ufinh"]
 [ext_resource type="AudioStream" uid="uid://bx0t7f2nuk2lr" path="res://player/sounds/step.wav" id="4_34m2q"]
 [ext_resource type="AudioStream" uid="uid://cbcb2d63weegs" path="res://player/sounds/landing.wav" id="5_5rkfj"]
@@ -47,6 +48,7 @@ transform = Transform3D(-1, -3.71248e-14, -8.74228e-08, -3.23484e-08, 0.929023, 
 top_level = true
 attributes = SubResource("CameraAttributesPractical_2ooex")
 fov = 50.0
+script = ExtResource("3_fbyq3")
 
 [node name="GroundShapeCast" type="ShapeCast3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)

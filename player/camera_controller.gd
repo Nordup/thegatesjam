@@ -20,6 +20,12 @@ var _anchor: CharacterBody3D
 var _euler_rotation: Vector3
 
 
+func _ready() -> void:
+	if not is_multiplayer_authority():
+		set_process_input(false)
+		set_physics_process(false)
+
+
 func _unhandled_input(event: InputEvent) -> void:
 	_mouse_input = event is InputEventMouseMotion and Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED
 	if _mouse_input:

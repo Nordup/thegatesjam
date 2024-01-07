@@ -1,11 +1,9 @@
-[gd_scene load_steps=11 format=3 uid="uid://ciqrpd5675boy"]
+[gd_scene load_steps=9 format=3 uid="uid://ciqrpd5675boy"]
 
 [ext_resource type="Script" path="res://player/player.gd" id="1_pdbxc"]
 [ext_resource type="Script" path="res://player/camera_controller.gd" id="2_2fob2"]
 [ext_resource type="Script" path="res://player/player_camera.gd" id="3_fbyq3"]
 [ext_resource type="PackedScene" uid="uid://c0mo8tek77du4" path="res://player/model/character_skin.tscn" id="3_ufinh"]
-[ext_resource type="AudioStream" uid="uid://bx0t7f2nuk2lr" path="res://player/sounds/step.wav" id="4_34m2q"]
-[ext_resource type="AudioStream" uid="uid://cbcb2d63weegs" path="res://player/sounds/landing.wav" id="5_5rkfj"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_8x2xm"]
 
@@ -61,11 +59,3 @@ debug_shape_custom_color = Color(0.658824, 1, 0, 1)
 [node name="CharacterRotationRoot" type="Node3D" parent="."]
 
 [node name="CharacterSkin" parent="CharacterRotationRoot" instance=ExtResource("3_ufinh")]
-
-[node name="StepSound" type="AudioStreamPlayer3D" parent="."]
-stream = ExtResource("4_34m2q")
-
-[node name="LandingSound" type="AudioStreamPlayer3D" parent="."]
-stream = ExtResource("5_5rkfj")
-
-[connection signal="foot_step" from="CharacterRotationRoot/CharacterSkin" to="." method="play_foot_step_sound"]

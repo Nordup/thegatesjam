@@ -1,8 +1,6 @@
 class_name CharacterSkin
 extends Node3D
 
-signal foot_step
-
 @export var main_animation_player : AnimationPlayer
 
 var moving_blend_path := "parameters/StateMachine/move/blend_position"
@@ -16,6 +14,10 @@ var moving_blend_path := "parameters/StateMachine/move/blend_position"
 @onready var move_speed : float = 0.0 : set = set_moving_speed
 @onready var animation_tree : AnimationTree = $AnimationTree
 @onready var state_machine : AnimationNodeStateMachinePlayback = animation_tree.get("parameters/StateMachine/playback")
+
+
+@onready var _step_sound: AudioStreamPlayer3D = $StepSound
+@onready var _landing_sound: AudioStreamPlayer3D = $LandingSound
 
 
 func _ready():
@@ -48,5 +50,10 @@ func punch():
 	animation_tree["parameters/PunchOneShot/request"] = AnimationNodeOneShot.ONE_SHOT_REQUEST_FIRE
 
 
-func emit_foot_step():
-	foot_step.emit()
+func play_step_sound():
+	_step_sound.pitch_scale = randfn(1.1, 0.05)
+	_step_sound.play()
+
+
+func play_landing_sound():
+	_landing_sound.play()

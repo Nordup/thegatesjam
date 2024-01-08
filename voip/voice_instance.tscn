@@ -20,7 +20,6 @@ input_threshold = 0.02
 
 [node name="Mic" type="AudioStreamPlayer" parent="." node_paths=PackedStringArray("label")]
 stream = SubResource("AudioStreamMicrophone_sqrcl")
-volume_db = 5.919
 bus = &"Record"
 script = ExtResource("3_qmo8t")
 label = NodePath("../UI/PanelContainer/Label")

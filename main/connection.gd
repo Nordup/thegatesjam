@@ -5,6 +5,7 @@ signal connection_stopped
 @export var port: int
 @export var max_clients: int
 @export var host: String
+@export var use_localhost_in_editor: bool
 
 
 func _ready() -> void:
@@ -27,8 +28,12 @@ func start_server() -> void:
 
 
 func start_client() -> void:
+	var address = host
+	if Engine.is_editor_hint() and use_localhost_in_editor:
+		address = "localhost"
+	
 	var peer = ENetMultiplayerPeer.new()
-	var err = peer.create_client(host, port)
+	var err = peer.create_client(address, port)
 	if err != OK:
 		print("Cannot start client. Err: " + str(err))
 		connection_stopped.emit()

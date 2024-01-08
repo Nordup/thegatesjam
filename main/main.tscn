@@ -12,7 +12,8 @@
 script = ExtResource("1_hlrxf")
 port = 5050
 max_clients = 256
-host = "localhost"
+host = "95.163.240.240"
+use_localhost_in_editor = true
 
 [node name="UI" type="Control" parent="."]
 layout_mode = 3

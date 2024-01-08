@@ -9,8 +9,8 @@ signal connection_stopped
 
 
 func _ready() -> void:
-	if "--server" in OS.get_cmdline_args():
-		start_server()
+	if "--server" in OS.get_cmdline_args(): start_server()
+	connection_stopped.connect(disconnect_all)
 
 
 func start_server() -> void:
@@ -29,7 +29,7 @@ func start_server() -> void:
 
 func start_client() -> void:
 	var address = host
-	if Engine.is_editor_hint() and use_localhost_in_editor:
+	if OS.has_feature("editor") and use_localhost_in_editor:
 		address = "localhost"
 	
 	var peer = ENetMultiplayerPeer.new()
@@ -61,3 +61,11 @@ func peer_connected(id: int) -> void:
 
 func peer_disconnected(id: int) -> void:
 	print("Peer disconnected: " + str(id))
+
+
+func disconnect_all() -> void:
+	multiplayer.peer_connected.disconnect(peer_connected)
+	multiplayer.peer_disconnected.disconnect(peer_disconnected)
+	multiplayer.connected_to_server.disconnect(connected_to_server)
+	multiplayer.server_disconnected.disconnect(server_connection_failure)
+	multiplayer.connection_failed.disconnect(server_connection_failure)

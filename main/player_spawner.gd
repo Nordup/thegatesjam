@@ -15,8 +15,8 @@ func create_player(id: int):
 	
 	var i = randi() % spawn_points.get_children().size()
 	var spawn_point = spawn_points.get_children()[i] as Node3D
-	spawn([id, spawn_point.position])
-#	print("Player %d spawned at " % [id] + str(spawn_point.position))
+	spawn([id, spawn_point.global_position])
+	print("Player %d spawned at " % [id] + str(spawn_point.global_position))
 
 
 func custom_spawn(vars) -> Node:

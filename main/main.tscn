@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://main/connection.gd" id="1_hlrxf"]
 [ext_resource type="Script" path="res://main/ui_hide.gd" id="2_wtioc"]
-[ext_resource type="PackedScene" uid="uid://cvn24m03wis7x" path="res://levels/hub_level.tscn" id="3_lthm6"]
+[ext_resource type="PackedScene" uid="uid://enpjmjm7ayyu" path="res://levels/hub_level.tscn" id="3_0cpj8"]
 [ext_resource type="Script" path="res://main/player_spawner.gd" id="4_edyrb"]
 [ext_resource type="PackedScene" uid="uid://ciqrpd5675boy" path="res://player/player.tscn" id="5_wb2xi"]
 
@@ -13,6 +13,7 @@ script = ExtResource("1_hlrxf")
 port = 5050
 max_clients = 256
 host = "95.163.240.240"
+use_localhost_in_editor = true
 
 [node name="UI" type="Control" parent="."]
 layout_mode = 3
@@ -48,9 +49,9 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 30
 text = "Client"
 
-[node name="HubLevel" parent="." instance=ExtResource("3_lthm6")]
-
 [node name="Players" type="Node3D" parent="."]
+
+[node name="HubLevel" parent="." instance=ExtResource("3_0cpj8")]
 
 [node name="PlayerSpawner" type="MultiplayerSpawner" parent="." node_paths=PackedStringArray("spawn_points")]
 _spawnable_scenes = PackedStringArray("res://player/player.tscn")

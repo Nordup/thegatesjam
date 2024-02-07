@@ -1,0 +1,3 @@
+[gd_scene format=3 uid="uid://caogs25a3aah3"]
+
+[node name="TestVoipPlugin" type="Node2D"]

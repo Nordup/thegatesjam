@@ -24,6 +24,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
 script = ExtResource("2_wtioc")
+hide_ui_and_connect = true
 
 [node name="Buttons" type="VBoxContainer" parent="UI"]
 layout_mode = 1
@@ -61,6 +62,7 @@ player_scene = ExtResource("5_wb2xi")
 spawn_points = NodePath("../HubLevel/SpawnPoints")
 
 [connection signal="connection_stopped" from="Connection" to="UI" method="show_ui"]
+[connection signal="connect_client" from="UI" to="Connection" method="start_client"]
 [connection signal="pressed" from="UI/Buttons/Server" to="Connection" method="start_server"]
 [connection signal="pressed" from="UI/Buttons/Server" to="UI" method="hide_ui"]
 [connection signal="pressed" from="UI/Buttons/Client" to="Connection" method="start_client"]

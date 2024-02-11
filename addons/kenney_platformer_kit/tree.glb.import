@@ -33,7 +33,7 @@ _subresources={
 "nodes": {
 "PATH:tree": {
 "generate/physics": true,
-"physics/shape_type": 1
+"physics/shape_type": 2
 }
 }
 }

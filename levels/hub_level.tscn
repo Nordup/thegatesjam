@@ -238,20 +238,20 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.25, 1, 1.25)
 [node name="arrows2" parent="Env" instance=ExtResource("21_5n823")]
 transform = Transform3D(-0.5, 0, 0.866025, 0, 1, 0, -0.866025, 0, -0.5, 5, 1, -1.75)
 
-[node name="flowers2" parent="." instance=ExtResource("22_5cyu8")]
+[node name="flowers2" parent="Env" instance=ExtResource("22_5cyu8")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 2, -4.5)
 
-[node name="flowersLow2" parent="." instance=ExtResource("23_36p3d")]
+[node name="flowersLow2" parent="Env" instance=ExtResource("23_36p3d")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.75, 2, -4)
 
-[node name="flowersLow3" parent="." instance=ExtResource("23_36p3d")]
+[node name="flowersLow3" parent="Env" instance=ExtResource("23_36p3d")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 2, -5)
 
-[node name="plant2" parent="." instance=ExtResource("14_s7tov")]
+[node name="plant9" parent="Env" instance=ExtResource("14_s7tov")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 2, -5)
 
-[node name="plant3" parent="." instance=ExtResource("14_s7tov")]
+[node name="plant10" parent="Env" instance=ExtResource("14_s7tov")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 2, -3.5)
 
-[node name="plant4" parent="." instance=ExtResource("14_s7tov")]
+[node name="plant11" parent="Env" instance=ExtResource("14_s7tov")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.25, 2, -4.5)

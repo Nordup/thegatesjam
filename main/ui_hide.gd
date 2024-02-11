@@ -1,5 +1,15 @@
 extends Control
 
+signal connect_client
+
+@export var hide_ui_and_connect: bool
+
+
+func _ready():
+	if hide_ui_and_connect:
+		visible = false
+		connect_client.emit()
+
 
 func hide_ui() -> void:
 	visible = false

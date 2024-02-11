@@ -25,6 +25,10 @@ run/size/mode=3
 buses/default_bus_layout="res://defaults/audio_bus_layout.tres"
 driver/enable_input=true
 
+[display]
+
+window/size/mode=3
+
 [input]
 
 move_up={

@@ -1,13 +1,12 @@
 [gd_scene load_steps=7 format=3 uid="uid://doq7mhnb2cppx"]
 
 [ext_resource type="Script" path="res://voip/voice_instance.gd" id="1_denby"]
-[ext_resource type="Script" path="res://voip/hide_ui.gd" id="2_q6jaj"]
 [ext_resource type="Script" path="res://voip/mic_controller.gd" id="3_qmo8t"]
+[ext_resource type="Script" path="res://voip/ui_hide.gd" id="3_t1vej"]
 
 [sub_resource type="AudioStreamMicrophone" id="AudioStreamMicrophone_sqrcl"]
 
-[sub_resource type="AudioStreamGenerator" id="AudioStreamGenerator_qqedh"]
-buffer_length = 0.1
+[sub_resource type="AudioStreamVOIP" id="AudioStreamVOIP_usf1w"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ri2ce"]
 bg_color = Color(0.129412, 0.14902, 0.180392, 0.431373)
@@ -16,17 +15,17 @@ bg_color = Color(0.129412, 0.14902, 0.180392, 0.431373)
 script = ExtResource("1_denby")
 mic = NodePath("Mic")
 audio = NodePath("Audio")
-input_threshold = 0.02
 
 [node name="Mic" type="AudioStreamPlayer" parent="." node_paths=PackedStringArray("label")]
 stream = SubResource("AudioStreamMicrophone_sqrcl")
-volume_db = 10.0
+autoplay = true
 bus = &"Record"
 script = ExtResource("3_qmo8t")
 label = NodePath("../UI/PanelContainer/Label")
 
-[node name="Audio" type="AudioStreamPlayer3D" parent="."]
-stream = SubResource("AudioStreamGenerator_qqedh")
+[node name="Audio" type="AudioStreamPlayer" parent="."]
+stream = SubResource("AudioStreamVOIP_usf1w")
+autoplay = true
 bus = &"Speak"
 
 [node name="UI" type="Control" parent="."]
@@ -37,7 +36,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
-script = ExtResource("2_q6jaj")
+script = ExtResource("3_t1vej")
 
 [node name="PanelContainer" type="PanelContainer" parent="UI"]
 layout_mode = 0

@@ -1,0 +1,16 @@
+[gd_scene load_steps=4 format=3 uid="uid://cs6e6hosj4yis"]
+
+[ext_resource type="Script" path="res://voip_demo_test/main.gd" id="1_2yq0t"]
+[ext_resource type="PackedScene" uid="uid://b4fav2vhdjwj3" path="res://voip_demo_test/user.tscn" id="1_u1ejl"]
+
+[sub_resource type="AudioStreamMicrophone" id="AudioStreamMicrophone_gb1th"]
+
+[node name="Node3D" type="Node3D"]
+script = ExtResource("1_2yq0t")
+SERVER_PORT = 5555
+user = ExtResource("1_u1ejl")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = SubResource("AudioStreamMicrophone_gb1th")
+autoplay = true
+bus = &"Record"

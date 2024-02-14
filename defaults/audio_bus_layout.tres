@@ -1,11 +1,7 @@
-[gd_resource type="AudioBusLayout" load_steps=3 format=3 uid="uid://bjsxjvg1jpdss"]
+[gd_resource type="AudioBusLayout" load_steps=2 format=3 uid="uid://bjsxjvg1jpdss"]
 
-[sub_resource type="AudioEffectLimiter" id="AudioEffectLimiter_gdrf6"]
-resource_name = "Limiter"
-ceiling_db = -10.0
-
-[sub_resource type="AudioEffectCapture" id="AudioEffectCapture_34iek"]
-resource_name = "Capture"
+[sub_resource type="VOIPInputCapture" id="VOIPInputCapture_gsvqe"]
+resource_name = "VOIPInputCapture"
 
 [resource]
 bus/1/name = &"Character"
@@ -18,15 +14,13 @@ bus/2/name = &"Speak"
 bus/2/solo = false
 bus/2/mute = false
 bus/2/bypass_fx = false
-bus/2/volume_db = 6.02
+bus/2/volume_db = 5.02676
 bus/2/send = &"Master"
-bus/2/effect/0/effect = SubResource("AudioEffectLimiter_gdrf6")
-bus/2/effect/0/enabled = true
 bus/3/name = &"Record"
 bus/3/solo = false
 bus/3/mute = true
 bus/3/bypass_fx = false
 bus/3/volume_db = 0.0
 bus/3/send = &"Master"
-bus/3/effect/0/effect = SubResource("AudioEffectCapture_34iek")
+bus/3/effect/0/effect = SubResource("VOIPInputCapture_gsvqe")
 bus/3/effect/0/enabled = true

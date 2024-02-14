@@ -6,6 +6,8 @@ signal connect_client
 
 
 func _ready():
+	if "--server" in OS.get_cmdline_args(): return
+	
 	if hide_ui_and_connect:
 		visible = false
 		connect_client.emit()

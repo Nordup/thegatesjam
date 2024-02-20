@@ -27,6 +27,9 @@ extends CharacterBody3D
 @onready var _gravity: float = -30.0
 @onready var _ground_height: float = 0.0
 
+## Sync properties
+@export var _velocity: Vector3
+
 
 func _ready() -> void:
 	if is_multiplayer_authority():
@@ -35,7 +38,7 @@ func _ready() -> void:
 
 
 func _physics_process(delta: float) -> void:
-	if not is_multiplayer_authority(): return
+	if not is_multiplayer_authority(): sync_client(delta); return
 	
 	# Calculate ground height for camera controller
 	if _ground_shapecast.get_collision_count() > 0:
@@ -99,6 +102,13 @@ func _physics_process(delta: float) -> void:
 	var epsilon := 0.001
 	if delta_position.length() < epsilon and velocity.length() > epsilon:
 		global_position += get_wall_normal() * 0.1
+	
+	_velocity = velocity
+
+
+func sync_client(_delta: float) -> void:
+	velocity = _velocity
+	move_and_slide()
 
 
 func _get_camera_oriented_input() -> Vector3:

@@ -1,4 +1,5 @@
 extends Node
+class_name Connection
 
 signal connection_stopped
 
@@ -9,8 +10,12 @@ signal connection_stopped
 
 
 func _ready() -> void:
-	if "--server" in OS.get_cmdline_args(): start_server()
+	if Connection.is_server(): start_server()
 	connection_stopped.connect(disconnect_all)
+
+
+static func is_server() -> bool:
+	return "--server" in OS.get_cmdline_args()
 
 
 func start_server() -> void:

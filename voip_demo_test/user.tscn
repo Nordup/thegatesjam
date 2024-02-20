@@ -1,8 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://b4fav2vhdjwj3"]
-
-[sub_resource type="AudioStreamVOIP" id="AudioStreamVOIP_0v042"]
-
-[node name="AudioStreamPlayer" type="AudioStreamPlayer"]
-stream = SubResource("AudioStreamVOIP_0v042")
-autoplay = true
-bus = &"Speak"

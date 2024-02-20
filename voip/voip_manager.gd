@@ -38,7 +38,7 @@ func voice_packet_ready(packet) -> void:
 		rpc("voice_packet_received", packet)
 
 
-@rpc("any_peer", "unreliable")
+@rpc("any_peer", "call_remote", "unreliable_ordered", 1)
 func voice_packet_received(packet) -> void:
 	if multiplayer.is_server(): return
 	

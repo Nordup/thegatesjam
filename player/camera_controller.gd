@@ -36,28 +36,28 @@ func _unhandled_input(event: InputEvent) -> void:
 func _physics_process(delta: float) -> void:
 	if not _anchor:
 		return
-
+	
 	_rotation_input += Input.get_action_raw_strength("camera_left") - Input.get_action_raw_strength("camera_right")
 	_tilt_input += Input.get_action_raw_strength("camera_up") - Input.get_action_raw_strength("camera_down")
-
+	
 	if invert_mouse_y:
 		_tilt_input *= -1
-
+	
 	# Set camera controller to current ground level for the character
 	var target_position := _anchor.global_position + _offset
 	target_position.y = lerp(global_position.y, _anchor._ground_height, 0.1)
 	global_position = target_position
-
+	
 	# Rotates camera using euler rotation
 	_euler_rotation.x += _tilt_input * delta
 	_euler_rotation.x = clamp(_euler_rotation.x, tilt_lower_limit, tilt_upper_limit)
 	_euler_rotation.y += _rotation_input * delta
-
+	
 	transform.basis = Basis.from_euler(_euler_rotation)
-
+	
 	camera.global_transform = _pivot.global_transform
 	camera.rotation.z = 0
-
+	
 	_rotation_input = 0.0
 	_tilt_input = 0.0
 

@@ -50,4 +50,4 @@ func on_spawned(node: Node) -> void:
 
 
 func on_despawned(node: Node) -> void:
-	player_despawned.emit(int(node.name))
+	player_despawned.emit(node.get_multiplayer_authority())

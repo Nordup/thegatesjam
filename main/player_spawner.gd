@@ -1,4 +1,8 @@
 extends MultiplayerSpawner
+class_name PlayerSpawner
+
+signal player_spawned(id: int, player: Player)
+signal player_despawned(id: int)
 
 @export var player_scene: PackedScene
 @export var spawn_points: Node3D
@@ -8,6 +12,8 @@ func _ready() -> void:
 	spawn_function = custom_spawn
 	multiplayer.peer_connected.connect(create_player)
 	multiplayer.peer_disconnected.connect(destroy_player)
+	spawned.connect(on_spawned)
+	despawned.connect(on_despawned)
 
 
 func create_player(id: int):
@@ -17,6 +23,11 @@ func create_player(id: int):
 	var spawn_point = spawn_points.get_children()[i] as Node3D
 	spawn([id, spawn_point.global_position])
 	print("Player %d spawned at " % [id] + str(spawn_point.global_position))
+
+
+func destroy_player(id: int):
+	if not multiplayer.is_server(): return
+	get_node(spawn_path).get_node(str(id)).queue_free()
 
 
 func custom_spawn(vars) -> Node:
@@ -30,7 +41,13 @@ func custom_spawn(vars) -> Node:
 	return p
 
 
-func destroy_player(id: int):
-	if not multiplayer.is_server(): return
-	get_node(spawn_path).get_node(str(id)).queue_free()
-#	print("Player %d leaved" % [id])
+func get_player_or_null(id: int) -> Player:
+	return get_node(spawn_path).get_node_or_null(str(id))
+
+
+func on_spawned(node: Node) -> void:
+	player_spawned.emit(node.get_multiplayer_authority(), node)
+
+
+func on_despawned(node: Node) -> void:
+	player_despawned.emit(int(node.name))

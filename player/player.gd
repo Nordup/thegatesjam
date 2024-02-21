@@ -1,5 +1,5 @@
-class_name Player
 extends CharacterBody3D
+class_name Player
 
 ## Character maximum run speed on the ground.
 @export var move_speed := 8.0
@@ -48,20 +48,20 @@ func _physics_process(delta: float) -> void:
 		_ground_height = global_position.y + _ground_shapecast.target_position.y
 	if global_position.y < _ground_height:
 		_ground_height = global_position.y
-
+	
 	# Get input and movement state
 	var is_just_jumping := Input.is_action_just_pressed("jump") and is_on_floor()
 	var is_air_boosting := Input.is_action_pressed("jump") and not is_on_floor() and velocity.y > 0.0
-
+	
 	_move_direction = _get_camera_oriented_input()
-
+	
 	# To not orient quickly to the last input, we save a last strong direction,
 	# this also ensures a good normalized value for the rotation basis.
 	if _move_direction.length() > 0.2:
 		_last_strong_direction = _move_direction.normalized()
-
+	
 	_orient_character_to_direction(_last_strong_direction, delta)
-
+	
 	# We separate out the y velocity to not interpolate on the gravity
 	var y_velocity := velocity.y
 	velocity.y = 0.0
@@ -69,16 +69,16 @@ func _physics_process(delta: float) -> void:
 	if _move_direction.length() == 0 and velocity.length() < stopping_speed:
 		velocity = Vector3.ZERO
 	velocity.y = y_velocity
-
+	
 	# Update position
-
+	
 	velocity.y += _gravity * delta
-
+	
 	if is_just_jumping:
 		velocity.y += jump_initial_impulse
 	elif is_air_boosting:
 		velocity.y += jump_additional_force * delta
-
+	
 	# Set character animation
 	if is_just_jumping:
 		_character_skin.jump.rpc()
@@ -91,11 +91,11 @@ func _physics_process(delta: float) -> void:
 			_character_skin.set_moving_speed.rpc(inverse_lerp(0.0, move_speed, xz_velocity.length()))
 		else:
 			_character_skin.set_moving.rpc(false)
-
+	
 	var position_before := global_position
 	move_and_slide()
 	var position_after := global_position
-
+	
 	# If velocity is not 0 but the difference of positions after move_and_slide is,
 	# character might be stuck somewhere!
 	var delta_position := position_after - position_before
@@ -113,12 +113,12 @@ func sync_client(_delta: float) -> void:
 
 func _get_camera_oriented_input() -> Vector3:
 	var raw_input := Input.get_vector("move_left", "move_right", "move_up", "move_down")
-
+	
 	var input := Vector3.ZERO
 	# This is to ensure that diagonal input isn't stronger than axis aligned input
 	input.x = -raw_input.x * sqrt(1.0 - raw_input.y * raw_input.y / 2.0)
 	input.z = -raw_input.y * sqrt(1.0 - raw_input.x * raw_input.x / 2.0)
-
+	
 	input = _camera_controller.global_transform.basis * input
 	input.y = 0.0
 	return input

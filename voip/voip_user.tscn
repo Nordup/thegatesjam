@@ -1,8 +1,13 @@
-[gd_scene load_steps=2 format=3 uid="uid://bjywb13vy4hl4"]
+[gd_scene load_steps=3 format=3 uid="uid://bjywb13vy4hl4"]
+
+[ext_resource type="Script" path="res://voip/voip_user.gd" id="1_wo4b3"]
 
 [sub_resource type="AudioStreamVOIP" id="AudioStreamVOIP_fy5gg"]
 
-[node name="VoipUser" type="AudioStreamPlayer"]
+[node name="VoipUser" type="AudioStreamPlayer3D"]
 stream = SubResource("AudioStreamVOIP_fy5gg")
 autoplay = true
+max_distance = 20.0
 bus = &"Speak"
+script = ExtResource("1_wo4b3")
+offset = Vector3(0, 2, 0)

@@ -19,9 +19,10 @@ max_clients = 256
 host = "95.163.240.240"
 use_localhost_in_editor = true
 
-[node name="VoipManager" type="Node" parent="."]
+[node name="VoipManager" type="Node" parent="." node_paths=PackedStringArray("player_spawner")]
 script = ExtResource("2_u8axh")
-user = ExtResource("3_tfkyd")
+user_scn = ExtResource("3_tfkyd")
+player_spawner = NodePath("../PlayerSpawner")
 
 [node name="Microphone" type="AudioStreamPlayer" parent="."]
 stream = SubResource("AudioStreamMicrophone_40kex")

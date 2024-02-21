@@ -1,11 +1,26 @@
-[gd_scene load_steps=10 format=3 uid="uid://ciqrpd5675boy"]
+[gd_scene load_steps=15 format=3 uid="uid://ciqrpd5675boy"]
 
 [ext_resource type="Script" path="res://player/player.gd" id="1_pdbxc"]
 [ext_resource type="Script" path="res://player/camera_controller.gd" id="2_2fob2"]
-[ext_resource type="Script" path="res://player/player_camera.gd" id="3_fbyq3"]
+[ext_resource type="Script" path="res://player/audio_listener.gd" id="2_4csdy"]
+[ext_resource type="Script" path="res://player/camera.gd" id="3_qxleh"]
 [ext_resource type="PackedScene" uid="uid://c0mo8tek77du4" path="res://player/model/character_skin.tscn" id="3_ufinh"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_8x2xm"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_g6jd1"]
+albedo_color = Color(1, 0, 0, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_nd4sr"]
+material = SubResource("StandardMaterial3D_g6jd1")
+size = Vector3(0.7, 0.3, 0.5)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wn7lu"]
+albedo_color = Color(0, 0, 1, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_kin6n"]
+material = SubResource("StandardMaterial3D_wn7lu")
+size = Vector3(0.7, 0.3, 0.5)
 
 [sub_resource type="SeparationRayShape3D" id="SeparationRayShape3D_gqx4v"]
 
@@ -37,6 +52,20 @@ acceleration = 6.0
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("CapsuleShape3D_8x2xm")
 
+[node name="AudioListener3D" type="AudioListener3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8, -0.2)
+script = ExtResource("2_4csdy")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="AudioListener3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.35, 0, 0)
+visible = false
+mesh = SubResource("BoxMesh_nd4sr")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="AudioListener3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.35, 0, 0)
+visible = false
+mesh = SubResource("BoxMesh_kin6n")
+
 [node name="CameraController" type="Node3D" parent="."]
 top_level = true
 script = ExtResource("2_2fob2")
@@ -57,7 +86,7 @@ transform = Transform3D(-1, -3.71248e-14, -8.74228e-08, -3.23484e-08, 0.929023, 
 top_level = true
 attributes = SubResource("CameraAttributesPractical_2ooex")
 fov = 50.0
-script = ExtResource("3_fbyq3")
+script = ExtResource("3_qxleh")
 
 [node name="GroundShapeCast" type="ShapeCast3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)

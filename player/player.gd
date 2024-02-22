@@ -21,6 +21,7 @@ class_name Player
 @onready var _camera_controller: CameraController = $CameraController
 @onready var _ground_shapecast: ShapeCast3D = $GroundShapeCast
 @onready var _character_skin: CharacterSkin = $CharacterRotationRoot/CharacterSkin
+@onready var _synchronizer: MultiplayerSynchronizer = $MultiplayerSynchronizer
 
 @onready var _move_direction := Vector3.ZERO
 @onready var _last_strong_direction := Vector3.FORWARD
@@ -28,22 +29,22 @@ class_name Player
 @onready var _ground_height: float = 0.0
 
 ## Sync properties
-@export var _velocity: Vector3:
-	set(v):
-		_velocity = v
-		need_sync = true
-
-var need_sync: bool
+@export var _position: Vector3
+@export var _rotation: Vector3
+@export var _velocity: Vector3
 
 
 func _ready() -> void:
 	if is_multiplayer_authority():
 		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 		_camera_controller.setup(self)
+	
+	_synchronizer.delta_synchronized.connect(on_synchronized)
+	_synchronizer.synchronized.connect(on_synchronized)
 
 
 func _physics_process(delta: float) -> void:
-	if not is_multiplayer_authority(): sync_client(delta); return
+	if not is_multiplayer_authority(): interpolate_client(delta); return
 	
 	# Calculate ground height for camera controller
 	if _ground_shapecast.get_collision_count() > 0:
@@ -108,14 +109,22 @@ func _physics_process(delta: float) -> void:
 	if delta_position.length() < epsilon and velocity.length() > epsilon:
 		global_position += get_wall_normal() * 0.1
 	
+	send_sync_properties()
+
+
+func send_sync_properties() -> void:
+	_position = position
 	_velocity = velocity
+	_rotation = _rotation_root.rotation
 
 
-func sync_client(delta: float) -> void:
-	if need_sync:
-		velocity = _velocity
-		need_sync = false
-	
+func on_synchronized() -> void:
+	position = _position
+	velocity = _velocity
+	_rotation_root.rotation = _rotation
+
+
+func interpolate_client(delta: float) -> void:
 	velocity.y += _gravity * delta
 	move_and_slide()
 

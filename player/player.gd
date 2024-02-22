@@ -17,7 +17,7 @@ class_name Player
 ## between the idle and running states.
 @export var stopping_speed := 1.0
 ## Clamp sync delta for interpolation
-@export var sync_delta_max := 0.3
+@export var sync_delta_max := 0.1
 
 @onready var _rotation_root: Node3D = $CharacterRotationRoot
 @onready var _camera_controller: CameraController = $CameraController
@@ -31,15 +31,11 @@ class_name Player
 @onready var _ground_height: float = 0.0
 
 ## Sync properties
-@export var _position: Vector3:
-	set(value):
-		old_position = _position
-		_position = value
-var old_position: Vector3
-
+@export var _position: Vector3
 @export var _velocity: Vector3
-@export var _rotation_y: float
+@export var _direction: Vector3 = Vector3.FORWARD
 
+var position_error: Vector3
 
 var last_sync_time_ms: int
 var sync_delta: float
@@ -127,12 +123,12 @@ func _physics_process(delta: float) -> void:
 func set_sync_properties() -> void:
 	_position = position
 	_velocity = velocity
-	_rotation_y = _rotation_root.rotation.y
+	_direction = _last_strong_direction
 
 
 func on_synchronized() -> void:
 	velocity = _velocity
-	position = _position
+	position_error = position
 	
 	var sync_time_ms = Time.get_ticks_msec()
 	sync_delta = clampf(float(sync_time_ms - last_sync_time_ms) / 1000, 0, sync_delta_max)
@@ -140,13 +136,17 @@ func on_synchronized() -> void:
 
 
 func interpolate_client(delta: float) -> void:
-	var t = 1.0 if is_zero_approx(sync_delta) else delta / sync_delta
-	_rotation_root.rotation.y = lerp_angle(_rotation_root.rotation.y, _rotation_y, t)
-	#position = position.move_toward(_position, t)
-	velocity.y += _gravity * delta
+	_orient_character_to_direction(_direction, delta)
 	
-	sync_delta = clampf(sync_delta - delta, 0, sync_delta_max)
+	velocity.y += _gravity * delta
 	move_and_slide()
+	
+	var t = 1.0 if is_zero_approx(sync_delta) else delta / sync_delta
+	sync_delta = clampf(sync_delta - delta, 0, sync_delta_max)
+	
+	var pos_error_left = position_error.move_toward(_position, t)
+	position += pos_error_left - position_error # TODO: remove dithering
+	position_error = pos_error_left
 
 
 func _get_camera_oriented_input() -> Vector3:

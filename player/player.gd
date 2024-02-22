@@ -28,7 +28,12 @@ class_name Player
 @onready var _ground_height: float = 0.0
 
 ## Sync properties
-@export var _velocity: Vector3
+@export var _velocity: Vector3:
+	set(v):
+		_velocity = v
+		need_sync = true
+
+var need_sync: bool
 
 
 func _ready() -> void:
@@ -106,8 +111,12 @@ func _physics_process(delta: float) -> void:
 	_velocity = velocity
 
 
-func sync_client(_delta: float) -> void:
-	velocity = _velocity
+func sync_client(delta: float) -> void:
+	if need_sync:
+		velocity = _velocity
+		need_sync = false
+	
+	velocity.y += _gravity * delta
 	move_and_slide()
 
 

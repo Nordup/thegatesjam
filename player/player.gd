@@ -6,7 +6,7 @@ class_name Player
 ## Forward impulse after a melee attack.
 @export var attack_impulse := 10.0
 ## Movement acceleration (how fast character achieve maximum speed)
-@export var acceleration := 4.0
+@export var acceleration := 6.0
 ## Jump impulse
 @export var jump_initial_impulse := 12.0
 ## Jump impulse when player keeps pressing jump
@@ -16,6 +16,8 @@ class_name Player
 ## Minimum horizontal speed on the ground. This controls when the character's animation tree changes
 ## between the idle and running states.
 @export var stopping_speed := 1.0
+## Clamp sync delta for interpolation
+@export var sync_delta_max := 0.3
 
 @onready var _rotation_root: Node3D = $CharacterRotationRoot
 @onready var _camera_controller: CameraController = $CameraController
@@ -29,18 +31,28 @@ class_name Player
 @onready var _ground_height: float = 0.0
 
 ## Sync properties
-@export var _position: Vector3
-@export var _rotation: Vector3
+@export var _position: Vector3:
+	set(value):
+		old_position = _position
+		_position = value
+var old_position: Vector3
+
 @export var _velocity: Vector3
+@export var _rotation_y: float
+
+
+var last_sync_time_ms: int
+var sync_delta: float
 
 
 func _ready() -> void:
 	if is_multiplayer_authority():
 		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 		_camera_controller.setup(self)
-	
-	_synchronizer.delta_synchronized.connect(on_synchronized)
-	_synchronizer.synchronized.connect(on_synchronized)
+	else:
+		_synchronizer.delta_synchronized.connect(on_synchronized)
+		_synchronizer.synchronized.connect(on_synchronized)
+		on_synchronized()
 
 
 func _physics_process(delta: float) -> void:
@@ -109,23 +121,31 @@ func _physics_process(delta: float) -> void:
 	if delta_position.length() < epsilon and velocity.length() > epsilon:
 		global_position += get_wall_normal() * 0.1
 	
-	send_sync_properties()
+	set_sync_properties()
 
 
-func send_sync_properties() -> void:
+func set_sync_properties() -> void:
 	_position = position
 	_velocity = velocity
-	_rotation = _rotation_root.rotation
+	_rotation_y = _rotation_root.rotation.y
 
 
 func on_synchronized() -> void:
-	position = _position
 	velocity = _velocity
-	_rotation_root.rotation = _rotation
+	position = _position
+	
+	var sync_time_ms = Time.get_ticks_msec()
+	sync_delta = clampf(float(sync_time_ms - last_sync_time_ms) / 1000, 0, sync_delta_max)
+	last_sync_time_ms = sync_time_ms
 
 
 func interpolate_client(delta: float) -> void:
+	var t = 1.0 if is_zero_approx(sync_delta) else delta / sync_delta
+	_rotation_root.rotation.y = lerp_angle(_rotation_root.rotation.y, _rotation_y, t)
+	#position = position.move_toward(_position, t)
 	velocity.y += _gravity * delta
+	
+	sync_delta = clampf(sync_delta - delta, 0, sync_delta_max)
 	move_and_slide()
 
 

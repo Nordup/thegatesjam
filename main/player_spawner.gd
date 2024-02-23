@@ -5,7 +5,7 @@ signal player_spawned(id: int, player: Player)
 signal player_despawned(id: int)
 
 @export var player_scene: PackedScene
-@export var spawn_points: Node3D
+@export var spawn_points: SpawnPoints
 
 
 func _ready() -> void:
@@ -19,10 +19,9 @@ func _ready() -> void:
 func create_player(id: int):
 	if not multiplayer.is_server(): return
 	
-	var i = randi() % spawn_points.get_children().size()
-	var spawn_point = spawn_points.get_children()[i] as Node3D
-	spawn([id, spawn_point.global_position])
-	print("Player %d spawned at " % [id] + str(spawn_point.global_position))
+	var spawn_position = spawn_points.get_spawn_position()
+	spawn([id, spawn_position])
+	print("Player %d spawned at " % [id] + str(spawn_position))
 
 
 func destroy_player(id: int):

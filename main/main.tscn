@@ -64,9 +64,9 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 30
 text = "Client"
 
-[node name="Players" type="Node3D" parent="."]
-
 [node name="HubLevel" parent="." instance=ExtResource("3_0cpj8")]
+
+[node name="Players" type="Node3D" parent="."]
 
 [node name="PlayerSpawner" type="MultiplayerSpawner" parent="." node_paths=PackedStringArray("spawn_points")]
 _spawnable_scenes = PackedStringArray("res://player/player.tscn")
@@ -75,7 +75,7 @@ script = ExtResource("4_edyrb")
 player_scene = ExtResource("5_wb2xi")
 spawn_points = NodePath("../HubLevel/SpawnPoints")
 
-[connection signal="connection_stopped" from="Connection" to="UI" method="show_ui"]
+[connection signal="disconnected" from="Connection" to="UI" method="show_ui"]
 [connection signal="connect_client" from="UI" to="Connection" method="start_client"]
 [connection signal="pressed" from="UI/Buttons/Server" to="Connection" method="start_server"]
 [connection signal="pressed" from="UI/Buttons/Server" to="UI" method="hide_ui"]

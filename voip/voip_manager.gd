@@ -47,7 +47,7 @@ func player_spawned(id: int, player: Player) -> void:
 
 func voice_packet_ready(packet: PackedByteArray) -> void:
 	if not in_focus: return
-	if multiplayer.multiplayer_peer.get_connection_status() == MultiplayerPeer.CONNECTION_CONNECTED:
+	if Connection.is_peer_connected:
 		rpc("voice_packet_received", packet)
 
 
@@ -60,6 +60,7 @@ func voice_packet_received(packet: PackedByteArray) -> void:
 
 
 func _process(_delta: float) -> void:
+	if not Connection.is_peer_connected: return
 	if multiplayer.is_server(): return
 	
 	mic_capture.send_test_packets()

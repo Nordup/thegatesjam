@@ -16,8 +16,8 @@ class_name Player
 ## Minimum horizontal speed on the ground. This controls when the character's animation tree changes
 ## between the idle and running states.
 @export var stopping_speed := 1.0
-## Clamp sync delta for interpolation
-@export var sync_delta_max := 0.1
+## Clamp sync delta for faster interpolation
+@export var sync_delta_max := 0.2
 
 @onready var _rotation_root: Node3D = $CharacterRotationRoot
 @onready var _camera_controller: CameraController = $CameraController
@@ -33,9 +33,10 @@ class_name Player
 ## Sync properties
 @export var _position: Vector3
 @export var _velocity: Vector3
-@export var _direction: Vector3 = Vector3.FORWARD
+@export var _direction: Vector3 = Vector3.ZERO
+@export var _strong_direction: Vector3 = Vector3.FORWARD
 
-var position_error: Vector3
+var position_before_sync: Vector3
 
 var last_sync_time_ms: int
 var sync_delta: float
@@ -46,6 +47,7 @@ func _ready() -> void:
 		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 		_camera_controller.setup(self)
 	else:
+		rotation_speed /= 1.5
 		_synchronizer.delta_synchronized.connect(on_synchronized)
 		_synchronizer.synchronized.connect(on_synchronized)
 		on_synchronized()
@@ -123,12 +125,13 @@ func _physics_process(delta: float) -> void:
 func set_sync_properties() -> void:
 	_position = position
 	_velocity = velocity
-	_direction = _last_strong_direction
+	_direction = _move_direction
+	_strong_direction = _last_strong_direction
 
 
 func on_synchronized() -> void:
 	velocity = _velocity
-	position_error = position
+	position_before_sync = position
 	
 	var sync_time_ms = Time.get_ticks_msec()
 	sync_delta = clampf(float(sync_time_ms - last_sync_time_ms) / 1000, 0, sync_delta_max)
@@ -136,17 +139,24 @@ func on_synchronized() -> void:
 
 
 func interpolate_client(delta: float) -> void:
-	_orient_character_to_direction(_direction, delta)
+	_orient_character_to_direction(_strong_direction, delta)
+	
+	if _direction.length() == 0:
+		# don't interpolate to avoid small jitter when stopping
+		if (_position - position).length() > 1.0 and _velocity.is_zero_approx():
+			position = _position # fix misplacement
+	else:
+		# interpolate between position_before_sync and _position
+		# and add to ongoing movement to compensate misplacement
+		var t = 1.0 if is_zero_approx(sync_delta) else delta / sync_delta
+		sync_delta = clampf(sync_delta - delta, 0, sync_delta_max)
+		
+		var less_misplacement = position_before_sync.move_toward(_position, t)
+		position += less_misplacement - position_before_sync
+		position_before_sync = less_misplacement
 	
 	velocity.y += _gravity * delta
 	move_and_slide()
-	
-	var t = 1.0 if is_zero_approx(sync_delta) else delta / sync_delta
-	sync_delta = clampf(sync_delta - delta, 0, sync_delta_max)
-	
-	var pos_error_left = position_error.move_toward(_position, t)
-	position += pos_error_left - position_error # TODO: remove dithering
-	position_error = pos_error_left
 
 
 func _get_camera_oriented_input() -> Vector3:

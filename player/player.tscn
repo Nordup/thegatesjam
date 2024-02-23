@@ -40,6 +40,9 @@ properties/1/replication_mode = 1
 properties/2/path = NodePath(".:_direction")
 properties/2/spawn = true
 properties/2/replication_mode = 1
+properties/3/path = NodePath(".:_strong_direction")
+properties/3/spawn = true
+properties/3/replication_mode = 1
 
 [node name="Player" type="CharacterBody3D" groups=["damageables"]]
 top_level = true
@@ -102,8 +105,3 @@ debug_shape_custom_color = Color(0.658824, 1, 0, 1)
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_g0ye7")
-
-[node name="Label3D" type="Label3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.06445, 0)
-billboard = 2
-font_size = 147

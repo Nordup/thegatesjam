@@ -142,11 +142,11 @@ func interpolate_client(delta: float) -> void:
 	_orient_character_to_direction(_strong_direction, delta)
 	
 	if _direction.length() == 0:
-		# don't interpolate to avoid small jitter when stopping
+		# Don't interpolate to avoid small jitter when stopping
 		if (_position - position).length() > 1.0 and _velocity.is_zero_approx():
-			position = _position # fix misplacement
+			position = _position # Fix misplacement
 	else:
-		# interpolate between position_before_sync and _position
+		# Interpolate between position_before_sync and _position
 		# and add to ongoing movement to compensate misplacement
 		var t = 1.0 if is_zero_approx(sync_delta) else delta / sync_delta
 		sync_delta = clampf(sync_delta - delta, 0, sync_delta_max)

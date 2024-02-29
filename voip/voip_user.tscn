@@ -2,12 +2,14 @@
 
 [ext_resource type="Script" path="res://voip/voip_user.gd" id="1_wo4b3"]
 
-[sub_resource type="AudioStreamVOIP" id="AudioStreamVOIP_fy5gg"]
+[sub_resource type="AudioStreamVOIP" id="AudioStreamVOIP_mku04"]
+resource_local_to_scene = true
 
 [node name="VoipUser" type="AudioStreamPlayer3D"]
-stream = SubResource("AudioStreamVOIP_fy5gg")
+stream = SubResource("AudioStreamVOIP_mku04")
 autoplay = true
 max_distance = 20.0
 bus = &"Speak"
+doppler_tracking = 2
 script = ExtResource("1_wo4b3")
 offset = Vector3(0, 2, 0)

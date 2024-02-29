@@ -1,4 +1,4 @@
-extends Node3D
+extends AudioStreamPlayer3D
 class_name VoipUser
 
 @export var offset: Vector3

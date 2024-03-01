@@ -2,12 +2,9 @@ extends Node
 
 @export var user_scn: PackedScene
 @export var player_spawner: PlayerSpawner
-@export var speak_when_focused: bool
 
 var mic_capture: VOIPInputCapture
 var users = {} # {Peer ID: VoipUser}
-
-var focused: bool
 
 
 func _ready() -> void:
@@ -47,7 +44,7 @@ func player_spawned(id: int, player: Player) -> void:
 
 
 func voice_packet_ready(packet: PackedByteArray) -> void:
-	if speak_when_focused and not focused: return
+	if not Input.is_action_pressed("speak"): return
 	if Connection.is_peer_connected:
 		rpc("voice_packet_received", packet)
 
@@ -65,11 +62,3 @@ func _process(_delta: float) -> void:
 	if multiplayer.is_server(): return
 	
 	mic_capture.send_test_packets()
-
-
-func _notification(what: int) -> void:
-	match what:
-		MainLoop.NOTIFICATION_APPLICATION_FOCUS_IN:
-			focused = true
-		MainLoop.NOTIFICATION_APPLICATION_FOCUS_OUT:
-			focused = false

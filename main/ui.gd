@@ -9,13 +9,15 @@ func _ready():
 	if Connection.is_server(): return
 	
 	if hide_ui_and_connect:
-		visible = false
+		hide_ui()
 		connect_client.emit()
 
 
 func hide_ui() -> void:
-	visible = false
+	$MainMenu.visible = false
+	$InGameUI.visible = true
 
 
 func show_ui() -> void:
-	visible = true
+	$MainMenu.visible = true
+	$InGameUI.visible = false

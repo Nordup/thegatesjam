@@ -1,18 +1,14 @@
-[gd_scene load_steps=11 format=3 uid="uid://mqnlrs6hn6g6"]
+[gd_scene load_steps=9 format=3 uid="uid://mqnlrs6hn6g6"]
 
 [ext_resource type="Script" path="res://main/connection.gd" id="1_hlrxf"]
 [ext_resource type="Script" path="res://voip/voip_manager.gd" id="2_u8axh"]
-[ext_resource type="Script" path="res://main/ui.gd" id="2_wtioc"]
 [ext_resource type="PackedScene" uid="uid://enpjmjm7ayyu" path="res://levels/hub_level.tscn" id="3_0cpj8"]
 [ext_resource type="PackedScene" uid="uid://bjywb13vy4hl4" path="res://voip/voip_user.tscn" id="3_tfkyd"]
 [ext_resource type="Script" path="res://main/player_spawner.gd" id="4_edyrb"]
-[ext_resource type="Script" path="res://voip/speak_indicator.gd" id="5_3ffea"]
+[ext_resource type="PackedScene" uid="uid://cvl4jsitsxp0u" path="res://ui/ui.tscn" id="4_fvou2"]
 [ext_resource type="PackedScene" uid="uid://ciqrpd5675boy" path="res://player/player.tscn" id="5_wb2xi"]
 
 [sub_resource type="AudioStreamMicrophone" id="AudioStreamMicrophone_40kex"]
-
-[sub_resource type="LabelSettings" id="LabelSettings_h8t8c"]
-font_size = 30
 
 [node name="Main" type="Node"]
 
@@ -33,77 +29,13 @@ stream = SubResource("AudioStreamMicrophone_40kex")
 autoplay = true
 bus = &"Record"
 
-[node name="UI" type="Control" parent="."]
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 1
-script = ExtResource("2_wtioc")
-hide_ui_and_connect = true
-
-[node name="MainMenu" type="Control" parent="UI"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="Buttons" type="VBoxContainer" parent="UI/MainMenu"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -150.0
-offset_top = -52.0
-offset_right = 150.0
-offset_bottom = 52.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="Server" type="Button" parent="UI/MainMenu/Buttons"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 30
-text = "Server"
-
-[node name="Client" type="Button" parent="UI/MainMenu/Buttons"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 30
-text = "Client"
-
-[node name="InGameUI" type="Control" parent="UI"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 1
-
-[node name="SpeakIndicator" type="Label" parent="UI/InGameUI"]
-layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -20.0
-offset_top = 80.0
-offset_right = 20.0
-offset_bottom = 103.0
-grow_horizontal = 2
-text = "speaking"
-label_settings = SubResource("LabelSettings_h8t8c")
-script = ExtResource("5_3ffea")
+[node name="UI" parent="." instance=ExtResource("4_fvou2")]
 
 [node name="HubLevel" parent="." instance=ExtResource("3_0cpj8")]
 
 [node name="Players" type="Node3D" parent="."]
 
-[node name="PlayerSpawner" type="MultiplayerSpawner" parent="." node_paths=PackedStringArray("spawn_points")]
+[node name="PlayerSpawner" type="MultiplayerSpawner" parent="."]
 _spawnable_scenes = PackedStringArray("res://player/player.tscn")
 spawn_path = NodePath("../Players")
 script = ExtResource("4_edyrb")
@@ -112,9 +44,4 @@ spawn_points = NodePath("../HubLevel/SpawnPoints")
 
 [connection signal="disconnected" from="Connection" to="UI" method="show_ui"]
 [connection signal="connect_client" from="UI" to="Connection" method="start_client"]
-[connection signal="pressed" from="UI/MainMenu/Buttons/Server" to="Connection" method="start_server"]
-[connection signal="pressed" from="UI/MainMenu/Buttons/Server" to="UI" method="hide_ui"]
-[connection signal="pressed" from="UI/MainMenu/Buttons/Client" to="Connection" method="start_client"]
-[connection signal="pressed" from="UI/MainMenu/Buttons/Client" to="UI" method="hide_ui"]
-
-[editable path="HubLevel"]
+[connection signal="start_server" from="UI" to="Connection" method="start_server"]

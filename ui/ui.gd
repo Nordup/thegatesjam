@@ -1,5 +1,6 @@
 extends Control
 
+signal start_server
 signal connect_client
 
 @export var hide_ui_and_connect: bool
@@ -9,8 +10,19 @@ func _ready():
 	if Connection.is_server(): return
 	
 	if hide_ui_and_connect:
-		hide_ui()
-		connect_client.emit()
+		connect_client_emit()
+	else:
+		show_ui()
+
+
+func start_server_emit() -> void:
+	start_server.emit()
+	hide_ui()
+
+
+func connect_client_emit() -> void:
+	connect_client.emit()
+	hide_ui()
 
 
 func hide_ui() -> void:

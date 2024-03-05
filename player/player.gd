@@ -44,7 +44,6 @@ var sync_delta: float
 
 func _ready() -> void:
 	if is_multiplayer_authority():
-		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 		_camera_controller.setup(self)
 	else:
 		rotation_speed /= 1.5

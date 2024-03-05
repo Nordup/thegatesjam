@@ -1,0 +1,108 @@
+[gd_scene load_steps=6 format=3 uid="uid://dpre6ebljycx4"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fkulv"]
+bg_color = Color(0.203922, 0.203922, 0.203922, 0.505882)
+corner_radius_top_left = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qo306"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_itnen"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[sub_resource type="LabelSettings" id="LabelSettings_42vb3"]
+font_size = 24
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_oc66c"]
+bg_color = Color(0.25098, 1, 0, 1)
+corner_radius_top_left = 25
+corner_radius_top_right = 25
+corner_radius_bottom_right = 25
+corner_radius_bottom_left = 25
+
+[node name="PlyerPanel" type="Control"]
+custom_minimum_size = Vector2(0, 60)
+layout_mode = 3
+anchors_preset = 0
+offset_right = 300.0
+offset_bottom = 40.0
+mouse_filter = 1
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_fkulv")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="Control" type="Control" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="LineEdit" type="LineEdit" parent="MarginContainer/VBoxContainer/Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+focus_mode = 1
+mouse_filter = 1
+mouse_default_cursor_shape = 0
+theme_override_font_sizes/font_size = 24
+theme_override_styles/normal = SubResource("StyleBoxFlat_qo306")
+theme_override_styles/focus = SubResource("StyleBoxFlat_itnen")
+text = "Player"
+
+[node name="Name" type="Label" parent="MarginContainer/VBoxContainer/Control"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Player"
+label_settings = SubResource("LabelSettings_42vb3")
+vertical_alignment = 1
+
+[node name="Panel" type="Panel" parent="MarginContainer/VBoxContainer/Control"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -15.0
+offset_top = -18.0
+offset_bottom = -3.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_oc66c")
+
+[node name="HSlider" type="HSlider" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+focus_mode = 0
+min_value = -80.0
+max_value = 80.0
+scrollable = false
+
+[connection signal="text_submitted" from="MarginContainer/VBoxContainer/Control/LineEdit" to="MarginContainer/VBoxContainer/Control/LineEdit" method="release_focus" unbinds=1]

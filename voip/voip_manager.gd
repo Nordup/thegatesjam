@@ -23,6 +23,7 @@ func peer_connected(id: int) -> void:
 	if id == 1: return
 	
 	var user = user_scn.instantiate() as VoipUser
+	user.set_user_id(id)
 	users[id] = user
 	add_child(user, true)
 	print("Voip user added ", id)

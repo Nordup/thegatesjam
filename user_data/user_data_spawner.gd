@@ -29,9 +29,10 @@ func destroy_user_data(id: int):
 func custom_spawn(vars) -> Node:
 	var id = vars[0]
 	
-	var u: UserData = user_data_scene.instantiate()
+	var u: UserData = user_data_scene.instantiate() as UserData
 	u.set_multiplayer_authority(id)
 	u.name = str(id)
+	u.id = id
 	return u
 
 

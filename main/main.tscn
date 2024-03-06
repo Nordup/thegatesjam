@@ -21,6 +21,7 @@ host = "95.163.240.240"
 use_localhost_in_editor = true
 
 [node name="UI" parent="." instance=ExtResource("4_fvou2")]
+hide_ui_and_connect = false
 
 [node name="UserDataManager" parent="." instance=ExtResource("3_rwvlu")]
 

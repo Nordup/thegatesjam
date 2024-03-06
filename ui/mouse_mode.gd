@@ -27,7 +27,7 @@ func on_visibility_changed() -> void:
 func _notification(what: int) -> void:
 	match what:
 		MainLoop.NOTIFICATION_APPLICATION_FOCUS_IN:
-			set_captured(true)
+			if is_visible_in_tree(): set_captured(true)
 		MainLoop.NOTIFICATION_APPLICATION_FOCUS_OUT:
 			pass
 

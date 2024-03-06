@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://dr5qcabhh7k8s"]
+
+[ext_resource type="Script" path="res://user_data/user_data.gd" id="1_hoick"]
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_nr88d"]
+
+[node name="UserData" type="Node"]
+script = ExtResource("1_hoick")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_nr88d")

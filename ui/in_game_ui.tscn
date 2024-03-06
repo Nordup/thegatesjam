@@ -1,8 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://o7b2ogh8t5bo"]
+[gd_scene load_steps=7 format=3 uid="uid://o7b2ogh8t5bo"]
 
 [ext_resource type="Script" path="res://voip/speak_indicator.gd" id="1_fqkxt"]
 [ext_resource type="Script" path="res://ui/mouse_mode.gd" id="1_n7o5y"]
 [ext_resource type="PackedScene" uid="uid://dpre6ebljycx4" path="res://ui/components/player_panel.tscn" id="2_ul6td"]
+[ext_resource type="Script" path="res://ui/player_panel_contiainer.gd" id="3_ck42f"]
+[ext_resource type="Resource" uid="uid://rclnl7v8k722" path="res://user_data/user_data_events.res" id="4_yrqx0"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_h8t8c"]
 font_size = 30
@@ -50,33 +52,6 @@ layout_mode = 2
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/ScrollContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-
-[node name="PlyerPanel" parent="MarginContainer/ScrollContainer/VBoxContainer" instance=ExtResource("2_ul6td")]
-layout_mode = 2
-
-[node name="PlyerPanel2" parent="MarginContainer/ScrollContainer/VBoxContainer" instance=ExtResource("2_ul6td")]
-layout_mode = 2
-
-[node name="PlyerPanel3" parent="MarginContainer/ScrollContainer/VBoxContainer" instance=ExtResource("2_ul6td")]
-layout_mode = 2
-
-[node name="PlyerPanel4" parent="MarginContainer/ScrollContainer/VBoxContainer" instance=ExtResource("2_ul6td")]
-layout_mode = 2
-
-[node name="PlyerPanel5" parent="MarginContainer/ScrollContainer/VBoxContainer" instance=ExtResource("2_ul6td")]
-layout_mode = 2
-
-[node name="PlyerPanel6" parent="MarginContainer/ScrollContainer/VBoxContainer" instance=ExtResource("2_ul6td")]
-layout_mode = 2
-
-[node name="PlyerPanel7" parent="MarginContainer/ScrollContainer/VBoxContainer" instance=ExtResource("2_ul6td")]
-layout_mode = 2
-
-[node name="PlyerPanel8" parent="MarginContainer/ScrollContainer/VBoxContainer" instance=ExtResource("2_ul6td")]
-layout_mode = 2
-
-[node name="PlyerPanel9" parent="MarginContainer/ScrollContainer/VBoxContainer" instance=ExtResource("2_ul6td")]
-layout_mode = 2
-
-[node name="PlyerPanel10" parent="MarginContainer/ScrollContainer/VBoxContainer" instance=ExtResource("2_ul6td")]
-layout_mode = 2
+script = ExtResource("3_ck42f")
+user_data_events = ExtResource("4_yrqx0")
+player_panel = ExtResource("2_ul6td")

@@ -17,7 +17,7 @@ func _ready():
 
 func start_server_emit() -> void:
 	start_server.emit()
-	hide_ui()
+	$MainMenu.visible = false
 
 
 func connect_client_emit() -> void:

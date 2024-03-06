@@ -1,4 +1,6 @@
-[gd_scene load_steps=6 format=3 uid="uid://dpre6ebljycx4"]
+[gd_scene load_steps=7 format=3 uid="uid://dpre6ebljycx4"]
+
+[ext_resource type="Script" path="res://ui/components/player_panel.gd" id="1_bjuay"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fkulv"]
 bg_color = Color(0.203922, 0.203922, 0.203922, 0.505882)
@@ -21,13 +23,14 @@ corner_radius_top_right = 25
 corner_radius_bottom_right = 25
 corner_radius_bottom_left = 25
 
-[node name="PlyerPanel" type="Control"]
+[node name="PlayerPanel" type="Control"]
 custom_minimum_size = Vector2(0, 60)
 layout_mode = 3
 anchors_preset = 0
 offset_right = 300.0
 offset_bottom = 40.0
 mouse_filter = 1
+script = ExtResource("1_bjuay")
 
 [node name="Panel" type="Panel" parent="."]
 layout_mode = 1

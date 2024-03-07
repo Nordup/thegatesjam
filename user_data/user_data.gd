@@ -13,4 +13,4 @@ var id: int
 
 func _process(_delta: float) -> void:
 	if not is_multiplayer_authority(): return
-	speaking = Input.is_action_pressed("speak")
+	speaking = Microphone.is_speaking

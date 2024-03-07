@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://mqnlrs6hn6g6"]
+[gd_scene load_steps=11 format=3 uid="uid://mqnlrs6hn6g6"]
 
 [ext_resource type="Script" path="res://main/connection.gd" id="1_hlrxf"]
 [ext_resource type="Script" path="res://voip/voip_manager.gd" id="2_u8axh"]
@@ -8,6 +8,7 @@
 [ext_resource type="Script" path="res://main/player_spawner.gd" id="4_edyrb"]
 [ext_resource type="PackedScene" uid="uid://cvl4jsitsxp0u" path="res://ui/ui.tscn" id="4_fvou2"]
 [ext_resource type="PackedScene" uid="uid://ciqrpd5675boy" path="res://player/player.tscn" id="5_wb2xi"]
+[ext_resource type="Script" path="res://voip/microphone.gd" id="6_fgpqb"]
 
 [sub_resource type="AudioStreamMicrophone" id="AudioStreamMicrophone_40kex"]
 
@@ -34,6 +35,7 @@ player_spawner = NodePath("../PlayerSpawner")
 stream = SubResource("AudioStreamMicrophone_40kex")
 autoplay = true
 bus = &"Record"
+script = ExtResource("6_fgpqb")
 
 [node name="Players" type="Node3D" parent="."]
 

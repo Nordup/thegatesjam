@@ -45,7 +45,7 @@ func player_spawned(id: int, player: Player) -> void:
 
 
 func voice_packet_ready(packet: PackedByteArray) -> void:
-	if not Input.is_action_pressed("speak"): return
+	if not Microphone.is_speaking: return
 	if Connection.is_peer_connected:
 		rpc("voice_packet_received", packet)
 

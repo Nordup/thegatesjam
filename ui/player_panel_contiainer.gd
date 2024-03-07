@@ -14,6 +14,8 @@ func user_data_spawned(id: int, user_data: UserData) -> void:
 	p.set_user_data(user_data)
 	p.name = str(id)
 	add_child(p)
+	
+	if user_data.is_my_data: move_child(p, 0)
 
 
 func user_data_despawned(id: int) -> void:

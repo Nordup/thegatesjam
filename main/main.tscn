@@ -21,9 +21,6 @@ max_clients = 256
 host = "95.163.240.240"
 use_localhost_in_editor = true
 
-[node name="UI" parent="." instance=ExtResource("4_fvou2")]
-hide_ui_and_connect = false
-
 [node name="UserDataManager" parent="." instance=ExtResource("3_rwvlu")]
 
 [node name="VoipManager" type="Node" parent="." node_paths=PackedStringArray("player_spawner")]
@@ -36,6 +33,9 @@ stream = SubResource("AudioStreamMicrophone_40kex")
 autoplay = true
 bus = &"Record"
 script = ExtResource("6_fgpqb")
+
+[node name="UI" parent="." instance=ExtResource("4_fvou2")]
+hide_ui_and_connect = false
 
 [node name="Players" type="Node3D" parent="."]
 

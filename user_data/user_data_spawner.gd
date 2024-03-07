@@ -18,7 +18,6 @@ func _ready() -> void:
 func create_user_data(id: int):
 	if not multiplayer.is_server(): return
 	spawn([id])
-	print("UserData %d spawned" % [id])
 
 
 func destroy_user_data(id: int):

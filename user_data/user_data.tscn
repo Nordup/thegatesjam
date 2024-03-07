@@ -3,6 +3,9 @@
 [ext_resource type="Script" path="res://user_data/user_data.gd" id="1_hoick"]
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_nr88d"]
+properties/0/path = NodePath(".:speaking")
+properties/0/spawn = true
+properties/0/replication_mode = 2
 
 [node name="UserData" type="Node"]
 script = ExtResource("1_hoick")

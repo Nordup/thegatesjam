@@ -24,7 +24,7 @@ corner_radius_top_right = 25
 corner_radius_bottom_right = 25
 corner_radius_bottom_left = 25
 
-[node name="PlayerPanel" type="Control" node_paths=PackedStringArray("volume_slider")]
+[node name="PlayerPanel" type="Control" node_paths=PackedStringArray("volume_slider", "speaking_indicator")]
 custom_minimum_size = Vector2(0, 60)
 layout_mode = 3
 anchors_preset = 0
@@ -33,6 +33,7 @@ offset_bottom = 40.0
 mouse_filter = 1
 script = ExtResource("1_hxm32")
 volume_slider = NodePath("MarginContainer/VBoxContainer/HSlider")
+speaking_indicator = NodePath("MarginContainer/VBoxContainer/Control/Panel")
 user_data_events = ExtResource("2_y2iyx")
 
 [node name="Panel" type="Panel" parent="."]

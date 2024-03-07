@@ -28,5 +28,4 @@ func set_anchor(_anchor: Node3D) -> void:
 
 func change_volume(id: int, volume: float) -> void:
 	if id != user_id: return
-	volume_db = volume_curve.sample(volume)
-	print(volume_db)
+	volume_db = linear_to_db(volume_curve.sample(volume))

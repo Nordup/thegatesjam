@@ -107,9 +107,10 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_oc66c")
 [node name="HSlider" type="HSlider" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
 focus_mode = 0
+min_value = 0.001
 max_value = 1.0
 step = 0.01
-value = 0.8
+value = 0.701
 scrollable = false
 
 [connection signal="text_submitted" from="MarginContainer/VBoxContainer/Control/LineEdit" to="MarginContainer/VBoxContainer/Control/LineEdit" method="release_focus" unbinds=1]

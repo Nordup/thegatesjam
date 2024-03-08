@@ -53,6 +53,7 @@ func _ready() -> void:
 
 
 func _physics_process(delta: float) -> void:
+	if EditMode.is_enabled: return
 	if not is_multiplayer_authority(): interpolate_client(delta); return
 	
 	# Calculate ground height for camera controller

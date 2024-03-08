@@ -1,4 +1,5 @@
 shader_type spatial;
+render_mode unshaded;
 
 uniform sampler2D caustics_texture : hint_default_black;
 uniform sampler2D color_gradient : source_color;

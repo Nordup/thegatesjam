@@ -218,6 +218,7 @@ theme_override_styles/focus = SubResource("StyleBoxFlat_k7gc0")
 theme_override_styles/read_only = SubResource("StyleBoxFlat_k7gc0")
 text = "Player One"
 placeholder_text = "Your nickname"
+max_length = 20
 editable = false
 script = ExtResource("3_yfkbo")
 

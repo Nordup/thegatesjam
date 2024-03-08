@@ -20,3 +20,9 @@ func user_data_spawned(id: int, user_data: UserData) -> void:
 
 func user_data_despawned(id: int) -> void:
 	get_node(str(id)).queue_free()
+
+
+func on_visibility_changed() -> void:
+	if not is_visible_in_tree() and not Connection.is_peer_connected:
+		for child in get_children():
+			child.queue_free()

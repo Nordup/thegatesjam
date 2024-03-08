@@ -5,6 +5,7 @@ var is_changing: bool
 
 func _ready() -> void:
 	text_submitted.connect(on_text_submitted)
+	focus_entered.connect(start_edit)
 
 
 func _input(event: InputEvent) -> void:

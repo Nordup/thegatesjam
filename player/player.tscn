@@ -119,6 +119,7 @@ debug_shape_custom_color = Color(0.658824, 1, 0, 1)
 [node name="Nickname" type="Control" parent="." node_paths=PackedStringArray("label", "speaking_indicator", "anchor")]
 layout_mode = 3
 anchors_preset = 0
+mouse_filter = 1
 script = ExtResource("6_f61mk")
 user_data_events = ExtResource("7_bgpps")
 label = NodePath("HBoxContainer/Nickname")
@@ -152,6 +153,7 @@ horizontal_alignment = 1
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
+mouse_filter = 1
 
 [node name="SpeakIndicator" type="Panel" parent="Nickname/HBoxContainer/Control"]
 layout_mode = 1
@@ -164,6 +166,7 @@ offset_bottom = 9.0
 grow_vertical = 2
 size_flags_horizontal = 8
 size_flags_vertical = 4
+mouse_filter = 1
 theme_override_styles/panel = SubResource("StyleBoxFlat_bjie3")
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]

@@ -19,7 +19,7 @@ func _ready() -> void:
 	var id = get_multiplayer_authority()
 	var _user_data = user_data_events.user_data_manager.try_get_user_data(id)
 	if is_instance_valid(_user_data):
-		retrieve_user_data(_user_data)
+		retrieve_user_data(id, _user_data)
 	else:
 		user_data_events.user_data_spawned.connect(retrieve_user_data)
 
@@ -33,8 +33,8 @@ func _process(_delta: float) -> void:
 	position = camera.unproject_position(anchor_pos)
 
 
-func retrieve_user_data(_user_data: UserData) -> void:
-	if _user_data.id != get_multiplayer_authority(): return
+func retrieve_user_data(id: int, _user_data: UserData) -> void:
+	if id != get_multiplayer_authority(): return
 	
 	user_data = _user_data
 	user_data.nickname_changed.connect(nickname_changed)

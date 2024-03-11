@@ -34,10 +34,14 @@ func _unhandled_input(event: InputEvent) -> void:
 
 
 func _physics_process(delta: float) -> void:
-	if not _anchor or EditMode.is_enabled: return
+	if not _anchor: return
 	
 	_rotation_input += Input.get_action_raw_strength("camera_left") - Input.get_action_raw_strength("camera_right")
 	_tilt_input += Input.get_action_raw_strength("camera_up") - Input.get_action_raw_strength("camera_down")
+	
+	if EditMode.is_enabled:
+		_rotation_input = 0.0
+		_tilt_input = 0.0
 	
 	if invert_mouse_y:
 		_tilt_input *= -1

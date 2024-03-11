@@ -53,7 +53,6 @@ func _ready() -> void:
 
 
 func _physics_process(delta: float) -> void:
-	if EditMode.is_enabled: return
 	if not is_multiplayer_authority(): interpolate_client(delta); return
 	
 	# Calculate ground height for camera controller
@@ -70,6 +69,11 @@ func _physics_process(delta: float) -> void:
 	var is_air_boosting := Input.is_action_pressed("jump") and not is_on_floor() and velocity.y > 0.0
 	
 	_move_direction = _get_camera_oriented_input()
+	
+	if EditMode.is_enabled:
+		is_just_jumping = false
+		is_air_boosting = false
+		_move_direction = Vector3.ZERO
 	
 	# To not orient quickly to the last input, we save a last strong direction,
 	# this also ensures a good normalized value for the rotation basis.

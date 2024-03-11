@@ -7,7 +7,7 @@ signal portal_entered(url: String)
 
 func _on_portal_entered(body):
 	if not body is CharacterBody3D: return
-	await get_tree().create_timer(0.1).timeout
+	await get_tree().create_timer(0.2).timeout
 	print("portal_entered: " + url)
 	portal_entered.emit(url)
 

@@ -27,6 +27,15 @@ func create_player(id: int):
 func destroy_player(id: int):
 	if not multiplayer.is_server(): return
 	get_node(spawn_path).get_node(str(id)).queue_free()
+	
+	player_despawned.emit(id)
+
+
+func respawn_player(id: int) -> void:
+	var player = get_node(spawn_path).get_node(str(id)) as Player
+	var spawn_position = spawn_points.get_spawn_position()
+	player.respawn.rpc_id(id, spawn_position)
+	print("Respawn player %d at " % [id] + str(spawn_position))
 
 
 func custom_spawn(vars) -> Node:
@@ -37,6 +46,8 @@ func custom_spawn(vars) -> Node:
 	p.set_multiplayer_authority(id)
 	p.name = str(id)
 	p.position = pos
+	
+	player_spawned.emit(id, p)
 	return p
 
 

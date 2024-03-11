@@ -183,3 +183,9 @@ func _orient_character_to_direction(direction: Vector3, delta: float) -> void:
 	_rotation_root.transform.basis = Basis(_rotation_root.transform.basis.get_rotation_quaternion().slerp(rotation_basis, delta * rotation_speed)).scaled(
 		model_scale
 	)
+
+
+@rpc("any_peer", "call_remote", "reliable")
+func respawn(spawn_position: Vector3) -> void:
+	global_position = spawn_position
+	velocity = Vector3.ZERO

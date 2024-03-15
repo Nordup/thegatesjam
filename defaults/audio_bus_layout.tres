@@ -5,9 +5,7 @@ resource_name = "Amplify"
 volume_db = 6.0
 
 [sub_resource type="VOIPInputCapture" id="VOIPInputCapture_gsvqe"]
-bitrate = 16000
 resource_name = "VOIPInputCapture"
-buffer_length = 0.3
 
 [resource]
 bus/1/name = &"Character"

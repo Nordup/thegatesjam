@@ -1,0 +1,69 @@
+[gd_scene load_steps=17 format=3 uid="uid://kjif6fdldies"]
+
+[ext_resource type="PackedScene" uid="uid://dg2hdoo618ot1" path="res://assets/gate.fbx" id="1_ryhfx"]
+[ext_resource type="PackedScene" uid="uid://q4fw2rk2sev8" path="res://assets/upeer_circle.fbx" id="2_7sohl"]
+[ext_resource type="PackedScene" uid="uid://cnvw5yec8n712" path="res://assets/stone_1.fbx" id="3_87hih"]
+[ext_resource type="PackedScene" uid="uid://clk73ncoflmpy" path="res://assets/stone_2.fbx" id="4_y34ct"]
+[ext_resource type="PackedScene" uid="uid://d0st3llbrgm5a" path="res://assets/stone_3.fbx" id="5_uff7r"]
+[ext_resource type="PackedScene" uid="uid://bd51feks6vwa7" path="res://assets/stone_4.fbx" id="6_eebis"]
+[ext_resource type="PackedScene" uid="uid://c6yjmdflcyot0" path="res://assets/stone_5.fbx" id="7_k413c"]
+[ext_resource type="PackedScene" uid="uid://d2hrhe0rbcy3e" path="res://assets/stone_6.fbx" id="8_pipck"]
+[ext_resource type="PackedScene" uid="uid://bb5ya1d6ixib8" path="res://assets/stone_7.fbx" id="9_dg5w6"]
+[ext_resource type="PackedScene" uid="uid://dvfx318q5i2jf" path="res://assets/stone_8.fbx" id="10_4doum"]
+[ext_resource type="PackedScene" uid="uid://bubh6ea0hjcxm" path="res://assets/stone_9.fbx" id="11_gxn3u"]
+[ext_resource type="PackedScene" uid="uid://dwxslrrd3xby7" path="res://assets/stone_10.fbx" id="12_7p1jq"]
+[ext_resource type="PackedScene" uid="uid://cu7wphyrrdqv8" path="res://assets/bir.fbx" id="13_2fn4l"]
+[ext_resource type="PackedScene" uid="uid://cf8upc7g3xwha" path="res://assets/fir.fbx" id="14_sb8r5"]
+[ext_resource type="Environment" uid="uid://cgqlrwpgos8m3" path="res://defaults/world_environment.tres" id="15_slbts"]
+[ext_resource type="PackedScene" uid="uid://cog87iqqxgwx4" path="res://assets/untitled.glb" id="16_p8f8w"]
+
+[node name="ArenaLevel" type="Node3D"]
+
+[node name="gate" parent="." instance=ExtResource("1_ryhfx")]
+
+[node name="upper_circle" parent="." instance=ExtResource("2_7sohl")]
+
+[node name="stone_1" parent="." instance=ExtResource("3_87hih")]
+transform = Transform3D(0.998296, -0.0210348, -0.0544391, 0.0246765, 0.99744, 0.0671115, 0.0528881, -0.0683405, 0.996259, 0, 0, 18.107)
+
+[node name="stone_2" parent="." instance=ExtResource("4_y34ct")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 14.3234)
+
+[node name="stone_3" parent="." instance=ExtResource("5_uff7r")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 12.051)
+
+[node name="stone_4" parent="." instance=ExtResource("6_eebis")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 8.91446)
+
+[node name="stone_5" parent="." instance=ExtResource("7_k413c")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 6.05816)
+
+[node name="stone_6" parent="." instance=ExtResource("8_pipck")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 4.05491)
+
+[node name="stone_7" parent="." instance=ExtResource("9_dg5w6")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2.25675)
+
+[node name="stone_8" parent="." instance=ExtResource("10_4doum")]
+
+[node name="stone_9" parent="." instance=ExtResource("11_gxn3u")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0672014, -0.0976629, -2.40582)
+
+[node name="stone_10" parent="." instance=ExtResource("12_7p1jq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -4.35851)
+
+[node name="fir" parent="." instance=ExtResource("14_sb8r5")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.56408, 0, 14.2061)
+
+[node name="bir" parent="." instance=ExtResource("13_2fn4l")]
+transform = Transform3D(-0.879748, 0, 0.47544, 0, 1, 0, -0.47544, 0, -0.879748, -0.0453644, 7.62939e-06, 0.0759296)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.822171, 0.247875, 0.512437, 0.297447, 0.954613, 0.0154707, -0.485344, 0.165143, -0.858585, 0, 0.427306, 0)
+shadow_enabled = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = ExtResource("15_slbts")
+
+[node name="untitled" parent="." instance=ExtResource("16_p8f8w")]
+transform = Transform3D(0.664057, 0, 0.747682, 0, 1, 0, -0.747682, 0, 0.664057, -7.79981, 0, 0)
